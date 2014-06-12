@@ -1,0 +1,4 @@
+arreglar el splash ... letras de copyrigh
+
+1. funcion cargarEvaluacion(int==unidadd) --> empieza desde 1... 10
+2. alinear menu de la izquierda
