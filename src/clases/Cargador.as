@@ -98,7 +98,10 @@
 			 * */
 			private function getNombre(ruta:String, nombre:String):String
 			{
+				
+				trace("la ruta es ::::::::::: "+ruta+"/"+nombre);
 				var miFile:File= new File(ruta+"/"+nombre);
+				
 				var max:int = 100;
 				var min:int = 1;
 				
@@ -143,8 +146,9 @@
 		
 		
 		var miCarpeta:File = e.target as File;
+		
 		var carpetaPresentacion:File= new File(Global.RUTA_PRESENTACION);
-
+	
 
 		carpetaPresentacion.copyToAsync(miCarpeta,true);
 		cargador.visible=true;

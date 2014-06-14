@@ -1,18 +1,15 @@
-package cargas
+package clases
 {
-	
-	
 	import clases.Global;
-	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.sampler.NewObjectSample;
-	
 	import mx.controls.Alert;
-	
 	import spark.utils.DataItem;
+	
+	
 	
 	
 	/**
@@ -73,7 +70,7 @@ package cargas
 		 * accion a relaizar si nuo encuertar xML
 		 * */
 		public function infoIOErrorEvent( e:IOErrorEvent ):void{
-			trace( 'infoIOErrorEvent NO ENCOTRO LE XML DE CONTENIDO DE LA PREGUNTAS ------->' );
+		//	trace( 'infoIOErrorEvent NO ENCOTRO LE XML DE CONTENIDO DE LA PREGUNTAS ------->' );
 			
 			funcionError();
 		}
@@ -159,9 +156,11 @@ package cargas
 						
 						
 						
-						
-						
 						preguntas.push(pregunta);
+						
+						
+						
+						
 						
 					}// termino de genera la pregunta que correspodia al SE1
 					else  if(miXML.pregunta[i].@tipo == "AS1"){
@@ -222,7 +221,7 @@ package cargas
 				
 				opciones.push(opcion);
 				
-				
+				trace("la opcion 1 ... "+opcion.texto);	
 			}
 			
 			
@@ -285,6 +284,8 @@ package cargas
 			}
 			
 			
+			
+			
 			//elementos del lado derecho
 			for(var op:int=0;op<preguntaXML.de.opcion.length(); op++)
 			{
@@ -324,8 +325,6 @@ package cargas
 			{
 			
 				trace("desd buil -- "+i+"--->"+pregunta.iz_opciones[i].texto+" "+pregunta.iz_opciones[i].puntaje+" - "+pregunta.iz_opciones[i].imagen);
-				//trace("desd buil-- "+i+"--->"+pregunta.de_opciones[i].texto+"  "+pregunta.de_opciones[i].puntaje+" - "+pregunta.de_opciones[i].imagen);
-				//trace("desd buil-->>>>> "+i+"--->"+pregunta.opciones[i].puntaje+" puntaje "+"desd buil-->>>>> "+i+"--->"+pregunta.opciones[i].texto);
 				
 			
 			}
@@ -362,6 +361,8 @@ package cargas
 		
 		return opciones;
 		}
+		
+		
 		
 		
 		

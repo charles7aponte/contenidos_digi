@@ -14,8 +14,10 @@
 			import clases.Cargador;
 			import clases.Global;
 			import clases.XmlPath;
+			import clases.cargaXMLPreguntas;
 			
 			import mx.controls.Alert;
+			import mx.controls.Menu;
 			import mx.managers.PopUpManager;
 			
 			import popup.popup_bloc;
@@ -52,7 +54,16 @@
 									"assets/contenido/p2.swf",
 									
 									];
+			
+			public var urlPreguntas:Array=[];
+			
+			
 			public var miURLExpresion:Array=[];
+			
+			private var numeroUnidad:int=1;///guarda el numero de la unidad que se carga
+			private var xmlPreguntas:cargaXMLPreguntas;
+			private var ruta_evaluacion_presentacion: String="";	
+			
 			
 			public var cantidaFotogramas:Array=[];
 			public var totalFotogramas:int=0;
@@ -158,12 +169,39 @@
 			
 			
 			
+			/************************
+			 * carga el XML de preguntas 
+			 * **/
+			public function cargarXMlPreguntas():void{
+		
+				
+				//xmlPreguntas.accionPorOpcion(seAbrioXML);
+				
+				Alert.show("--->"," --"+urlPreguntas[numeroUnidad-1]);
+				xmlPreguntas.leerXML(urlPreguntas[numeroUnidad-1]);
+				
+			
+			}
+			
+			
+			
+			/*******************
+			 * @param numero int
+			 * 
+			 **/
+			public function cargarEvalucion(numero:int):void
+			{
+				numeroUnidad=numero;
+				cargarXMlPreguntas();
+			
+			}
+			
 			
 			
 			/*****************************
 			 *  actualiz en la presentacion las imagenes externas 
 			 * 
-			 * **/
+			 **/
 			public function presentacionJs_HtmlActulizarImagenesExternas(arrayString:String):void{
 				
 				trace(arrayString);
@@ -182,20 +220,41 @@
 			 
 				 urlSwf= new Array();
 				 
+				 
+				 
 				 for(var i:int=0; i<miURLExpresion.length ; i++)
 				 {
 					var partesRuta:Array=	 (miURLExpresion[i]+"").split("/$IDIOMA$/");
 					
 					if(partesRuta.length>=2)
 					{
-						urlSwf[i]=partesRuta[0]+"/"+ this.idioma+"/"+partesRuta[1];
-						trace("........ "+urlSwf[i])
+						urlSwf[i]=partesRuta[0]+"/"+ this.idioma+"/"+partesRuta[1]+Global.swf;
+						
+						urlPreguntas[i]=partesRuta[0]+"/"+ this.idioma+"/"+partesRuta[1]+Global.pregunta;
+						trace("........---------------> "+urlPreguntas[i])
 					}
 					
 					
 					
 				 }
-			 
+				 
+				 Alert.show(""+Global.RUTA_PRESENTACION_EVALUACION+"--->","");
+				 
+				 
+				 ///cambia la ruta de evaluacion segun el idioma
+				 var partesRuta:Array=	 Global.RUTA_PRESENTACION_EVALUACION.split("/$IDIOMA$/");
+				 
+				// Alert.show(""+Global.RUTA_SWF_PRESENTACION+"--->",""+partesRuta[0]);
+				
+				 
+				 if(partesRuta.length>=2)
+				 {
+					 ruta_evaluacion_presentacion=partesRuta[0]+"/"+ this.idioma+"/"+partesRuta[1];
+					 trace("la ruta de presentacion de evaluacion es ::: "+ruta_evaluacion_presentacion)	;
+				 }
+				 	 
+				
+					
 			 }
 			
 			
@@ -218,7 +277,6 @@
 			 *  conecta el SWf con el teclado, los eventos son recibodos por el Flex y es pasodo por paramentro este evento al SWF cargado
 			 * */
 			public function activarSWF(letra:KeyboardEvent):void{
-				
 				
 				//if(Global.recibeTecla)	
 				{
@@ -311,9 +369,6 @@
 			public function init():void{			
 				
 				//		
-				
-				
-				
 				Global.PRINCIPAL_=this;
 
 				
@@ -321,17 +376,44 @@
 			
 				//cargar elemento 
 				presentacion_html.location=Global.RUTA_PRESENTACION+Global.NOMBRE_PRESENTACION;
-				
+								
 				
 				
 				
 				bton_presentacion.addEventListener(MouseEvent.CLICK,clickEnPresentacion);
+				bton_evaluacion.addEventListener(MouseEvent.CLICK,clickEvaluacion);
+				bton_buscar.addEventListener(MouseEvent.CLICK,function(e:MouseEvent){
+				
+					
+					var miSwf:Object=(pantallaIpad.content as  Object);
+					
+					
+					if(miSwf && miSwf['cargarEvaluacion1'])
+					{
+						
+						
+						miSwf.cargarEvaluacion1(777777777777777777);
+						
+					}
+				
+					
+				
+				});
+				
+				
 				cerrar.addEventListener(MouseEvent.CLICK,clickEnCerrar);
-				bton_presentacion.addEventListener(MouseEvent.ROLL_OVER,resaltar);
-				bton_presentacion.addEventListener(MouseEvent.ROLL_OUT,normal);
 				fondo_salidar_Ipad.addEventListener(MouseEvent.CLICK,clickCerrarPresentacion);
 				imagen_dispositivo.addEventListener(MouseEvent.CLICK,clickAbrirPresentacion);
 				bton_bloc.addEventListener(MouseEvent.CLICK, clickBloc);
+				
+				
+				
+				
+				bton_presentacion.addEventListener(MouseEvent.ROLL_OVER,resaltar);
+				bton_presentacion.addEventListener(MouseEvent.ROLL_OUT,normal);
+				bton_evaluacion.addEventListener(MouseEvent.ROLL_OVER,resaltar);
+				bton_evaluacion.addEventListener(MouseEvent.ROLL_OUT,normal);
+				
 				
 				
 				//focusEnabled=false;
@@ -356,7 +438,7 @@
 				
 	           // visible=false;			   
 				lanzarSplash();
-				
+				xmlPreguntas=new  cargaXMLPreguntas();
 				
 				
 				
@@ -468,30 +550,38 @@
 					{
 						
 						
-						swf.presentacion_1 = function():void{						
-							cargaPresentacion1(0)
-						
+						swf.presentacion_1 = function():void{	
+							
+						    
+							cargaPresentacion1(0);
+							numeroUnidad=1;
 							};
 						
 						swf.presentacion_2 = function():void{						
-							cargaPresentacion1(1)
-							
+							cargaPresentacion1(1);
+							numeroUnidad=2;
 						};
 						
-						swf.presentacion_3 = function():void{						
-							cargaPresentacion1(2)
-							
+						swf.presentacion_3 = function():void{
+							numeroUnidad=3;
+							cargaPresentacion1(2);
+							  
 						};
 						
 						
 						swf.presentacion_4 = function():void{						
+							
+							numeroUnidad=4;
 							cargaPresentacion1(3)
 							
 						};
 						
 						
 						swf.presentacion_5 = function():void{						
-							cargaPresentacion1(0)
+							
+							
+							numeroUnidad=5;
+							cargaPresentacion1(4)
 							
 						};
 						
@@ -632,6 +722,46 @@
 			
 			
 			
+			
+			/*************************
+			 * carga la evaluacion 
+			 * 
+			 * **/
+			public function clickEvaluacion(e:MouseEvent):void{
+			 trace("la ruta es :::: "+ruta_evaluacion_presentacion);
+			
+				cargarSWFContenido(ruta_evaluacion_presentacion,function():void{
+					
+						
+						try
+						{
+							
+							var miSwf:Object=(pantallaIpad.content as  Object);
+							
+							
+							if(miSwf && miSwf['cargarEvaluacion'])
+							{
+								
+								
+								miSwf.cargarEvaluacion=cargarEvalucion;
+								
+							}
+						}
+						catch(e:Error)
+						{
+							trace("ERROR enlaceSwfToFlex");
+							
+						}	
+				
+								
+						});
+			
+			
+			}
+			
+			
+			
+			
 			/***
 			 * carga un swf 
 			 * segun la url y la accion a realizar segun la funcion enviad por parametros
@@ -652,7 +782,7 @@
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, insertMovie);
 				loader.addEventListener(IOErrorEvent.IO_ERROR, errorSwf);
 				loader.addEventListener(IOErrorEvent.IO_ERROR, errorSwf);
-			//	loader.addEventListener(ProgressEvent.PROGRESS, SWFDownloadProgress);
+			//loader.addEventListener(ProgressEvent.PROGRESS, SWFDownloadProgress);
 				
 				function errorSwf():void{
 					cargador_1.visible=false;
@@ -680,12 +810,21 @@
 							//solo del menu derecho con swf}	
 							accion();
 							cargador_1.visible=false;
+							
+															
+							
 						}
 					
 						
+						
+						
+						
+					
+						
+						
 					}
 			
-			}
+			}//fin de la funcion  cargarSWFContenido
 			
 			
 			
@@ -1245,8 +1384,8 @@
 	
 	<fx:Declarations>
 		
-		<mx:AnimateProperty	id="ocultar_menu_lateral_de" target="{menu_lateral_derecho}" property="width" fromValue="{width*0.12}" toValue="0" duration="900" />
-		<mx:AnimateProperty	id="mostrar_menu_lateral_de" target="{menu_lateral_derecho}" property="width" fromValue="0" toValue="{width*0.12}" duration="900" />
+		<mx:AnimateProperty	id="ocultar_menu_lateral_de" target="{menu_lateral_derecho}" property="width" fromValue="{width*0.09}" toValue="0" duration="900" />
+		<mx:AnimateProperty	id="mostrar_menu_lateral_de" target="{menu_lateral_derecho}" property="width" fromValue="0" toValue="{width*0.09}" duration="900" />
 		
 		
 		<mx:AnimateProperty	id="ocultar_barra_lateral_izquierda" target="{barra_lateral_izquierda}" property="alpha" fromValue="1" toValue="0" duration="900" />
@@ -1322,7 +1461,7 @@
 				<s:VGroup left="20" right="0" top="41" bottom="40" horizontalAlign="right">
 					
 					<!-- bton 1 -->
-					<s:VGroup left="0" right="0" width="100%" height="24%" gap="0"
+					<s:VGroup id="bton_evaluacion" left="0" right="0" width="100%" height="24%" gap="0"
 							  horizontalAlign="center">
 						<s:Image x="0" y="0" width="90%" height="90%" scaleMode="letterbox"
 								 smooth="true" smoothingQuality="high"
@@ -1362,7 +1501,7 @@
 					</s:VGroup>
 					
 					<!-- bton 4 -->
-					<s:VGroup left="0" right="0" width="100%" height="24%" gap="0"
+					<s:VGroup id="bton_buscar" left="0" right="0" width="100%" height="24%" gap="0"
 							  horizontalAlign="center">
 								  	<s:Image x="0" y="0" width="90%" height="90%" scaleMode="letterbox"
 												  smooth="true" smoothingQuality="high"

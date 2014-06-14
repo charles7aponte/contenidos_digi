@@ -1,5 +1,6 @@
 package clases
 {
+	import flash.filesystem.File;
 	
 	public class Global
 	{
@@ -16,11 +17,19 @@ package clases
 		public static const  RUTA_SWF_PRESENTACION:String="assets/contenido/ESP/contenido.swf";
 		
 		public static const NOMBRE_PRESENTACION:String="index.html";
-		public static const RUTA_PRESENTACION:String="assets/presentacion1/";
-		
-		
+		public static const RUTA_PRESENTACION:String=File.applicationDirectory.nativePath+"/assets/presentacion1/";
 		public static var PRINCIPAL_:contenidosConflictoSex=null;
 		
+		
+		public static var numeroPreguntasEvaluacion:int=5;
+		
+		public static const swf="contenido.swf";
+		public static const pregunta="pregunta.xml";
+	
+		public static const RUTA_PRESENTACION_EVALUACION:String="assets/contenido/$IDIOMA$/evaluacion.swf";
+		
+		
+
 		
 	}
 }
