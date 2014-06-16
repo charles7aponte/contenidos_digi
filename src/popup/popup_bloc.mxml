@@ -2,9 +2,13 @@
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   width="316" height="368" backgroundAlpha="0.0" backgroundColor="#97A0A7"
-			   close="closeWindow(event)" contentBackgroundAlpha="0.0" creationComplete="init()"
-			   skinClass="clases.skins.popup_cerrar" title="Confirmar salida">
+			   width="316" height="326" backgroundAlpha="0.0" backgroundColor="#FCFCFC"
+			   borderAlpha="1.0" borderVisible="false" chromeColor="#FFFFFF"
+			   close="closeWindow(event)" contentBackgroundAlpha="0.0" cornerRadius="5"
+			   creationComplete="init()" dropShadowVisible="true"
+			   skinClass="clases.skins.popup_cerrar" styleName="notas">
+	
+		
 
 	<fx:Script>
 		<![CDATA[
@@ -27,18 +31,38 @@
 			
 			public function init():void{
 			
-				
-				bton_aceptar.addEventListener(MouseEvent.CLICK,acepta_bton);
+				bton_aceptar.buttonMode=true;	
+			//	bton_aceptar.addEventListener(MouseEvent.CLICK,acepta_bton);
+				bton_aceptar.addEventListener(MouseEvent.MOUSE_OVER,over_guardar);
+				bton_aceptar.addEventListener(MouseEvent.MOUSE_OUT,out_guardar);
 				//bton_cancelar.addEventListener(MouseEvent.CLICK,cancelar_bton);
 				
-				//bton_aceptar.addEventListener(MouseEvent.CLICK,guardarClick);			
+				bton_aceptar.addEventListener(MouseEvent.CLICK,guardarClick);			
 				
 				archivo.addEventListener(Event.COMPLETE, fileSaved); 
 				
-				
-				
+						
+			}
 			
-					
+			
+			
+			/***********************
+			 * over de bton guardar
+			 * */
+		 public 	function over_guardar(e:MouseEvent):void{
+			  image_g_1.visible=true;
+			  image_g_2.visible=false;
+			
+			}
+			
+			
+			/***********************
+			 * over de bton out
+			 * */
+		public 	function out_guardar(e:MouseEvent):void{
+				image_g_1.visible=false;
+				image_g_2.visible=true;
+				
 			}
 			
 			
@@ -108,16 +132,22 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<s:Image x="0" y="-1" width="316" height="300" source="assets/image/evaluacion/fondo.png"/>
+		<s:TextArea id="mi_contenido" x="46" y="10" width="255" height="275" borderColor="#FFF6F6"
+					borderVisible="false" chromeColor="#FDFAB0" contentBackgroundAlpha="0.0"
+					contentBackgroundColor="#FFFFFF" focusColor="#FFF83F" symbolColor="#FEFEFE"
+					text="JJJJJJJJJJJJJJ&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;"/>
 	
-	<s:Image x="-43" y="-31" width="410" height="408" source="assets/image/evaluacion/fondo2.png">
+	<s:Group id="bton_aceptar" x="248" y="-28" width="34" height="25" >
+		<s:Image id="image_g_1"  width="100%" height="100%" backgroundAlpha="0.0"
+				 chromeColor="#FFFFFF" smooth="true" source="assets/image/evaluacion/guardar_1.png"/>
 		
-	</s:Image>
+		
+		<s:Image  id="image_g_2" width="100%" height="100%" backgroundAlpha="0.0"
+				 chromeColor="#FFFFFF" smooth="true" source="assets/image/evaluacion/guardar_2.png"/>
 		
 		
-		<s:TextArea id="mi_contenido" x="43" y="41" width="261" height="275" borderColor="#FFF6F6"
-					chromeColor="#FFFFFF" contentBackgroundColor="#FFFFFF"
-					text="JJJJJJJJJJJJJJ&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;&#xd;FDSAF&#xd;"/>
+	</s:Group>
 	
-	<s:Image id="bton_aceptar" x="-4" y="10" width="36" height="35" smooth="true"
-			 source="assets/bton1_o.png"/>
+	
 </s:TitleWindow>

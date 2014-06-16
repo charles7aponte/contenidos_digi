@@ -1,0 +1,68 @@
+<?xml version="1.0"  encoding="UTF-8"?> 
+<!-- -->
+<contenido>
+	<conf cp="1" p_cp="2" ></conf>
+
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="Que es el sistema G-1000"  puntos="1">
+		<opcion puntaje="1"  >Es un sistema integrado de vuelo por instrumentos fabricados por GARMIN normalmente compuesto por dos unidades de la pantalla, una que actúa como una pantalla principal de vuelo(PFD), y uno como una pantalla multi-función (MFD)</opcion>
+		<opcion puntaje="-1"  >Controla las frecuencias de navegación y comunicaciones de los waypoints, intercepciones, VOR y NAV.</opcion>
+		<opcion puntaje="-1"  >Reporta indicadores del motor (torque, temperatura, compresión Ng), del sistema eléctrico y combustible por medio de una barra llamada EIS</opcion>
+		<opcion puntaje="-1"  >Supervisa el estado y eventualidades del fuselaje y ala por medio de sensores de movimiento ubicados a lo largo y ancho de la aeronave</opcion>
+		<opcion puntaje="-1"  >Contiene funcionalidades para planificar el vuelo desde un punto de partida a un punto de destino. </opcion>
+	</pregunta>
+	
+	
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="Cuando encontramos en el (PFD) Inset Map o (MFD) Navigation Map Page del sistema TAWS un color amarillo que significa."  puntos="1">
+		<opcion puntaje="1"  >Terreno entre 1000 pies y 100 pies por debajo de la altitud de la aeronave</opcion>
+		<opcion puntaje="-1"  >Terreno entre 200 pies y 800  pies por debajo de la altitud de la aeronave</opcion>
+		<opcion puntaje="-1"  >Terreno entre 100 pies y 10 pies por encima de la altitud de la aeronave</opcion>
+		<opcion puntaje="-1"  >Ninguna de las anteriores</opcion>
+	</pregunta>
+	
+	
+	<pregunta tipo="SE2"  cp="1" ruta="assets/evaluacion/pregunta_2.swf" texto="cuantas vueltas da un perro, antes de acostarse?"  puntos="2">
+		<opcion puntaje="-1"  >1</opcion>
+		<opcion puntaje="-1"  >2</opcion>
+		<opcion puntaje="-1"  >0</opcion>
+		<opcion puntaje="1"  >no se</opcion>
+		<opcion puntaje="1"  >preguntale</opcion>
+	</pregunta>
+
+	<pregunta tipo="AS1"  cp="1" ruta="assets/evaluacion/preguntaAS.swf"  texto="Las características de rendimiento más importantes del Cessna Caravan 208B son"  puntos="1">
+		<izq>
+			<opcion  tipo="iz_s1" imagen="" puntaje="1"  >Rango a 10,000 pies de altura (mn)</opcion>
+			<opcion  tipo="iz_s1" imagen="" puntaje="2"  >Distancia de despegue (Pies)</opcion>
+			<opcion  tipo="iz_s1" imagen="" puntaje="3"  >Velocidad de tasa máxima de ascenso (KIAS)</opcion>
+			<opcion  tipo="iz_s1" imagen="" puntaje="4"  >Velocidad máxima de operación (KIAS)</opcion>
+		</izq>
+		
+		<de>
+			<opcion  tipo="de_s1" imagen="" puntaje="2"  >2.500</opcion>
+			<opcion  tipo="de_s1" imagen="" puntaje="3"  >104</opcion>
+			<opcion  tipo="de_s1" imagen="" puntaje="1"  >963</opcion>
+			<opcion  tipo="de_s1" imagen="" puntaje="4"  >175</opcion>
+			<opcion  tipo="de_s1" imagen="" puntaje="-1"  >1.200</opcion>
+		</de>
+	
+	</pregunta>	
+	
+	
+	
+	<pregunta tipo="AS1"  cp="1" ruta="assets/evaluacion/preguntaAS.swf"  texto="Indique los pasos en el orden correcto para arrancar el motor con fuente externa de energía:"  puntos="1">
+		<izq>
+			<opcion  tipo="iz_s1" imagen="../../recursos/imagenes/e_p1_5_1.png" puntaje="1"  >mover a la posición “ON”</opcion>
+			<opcion  tipo="iz_s1" imagen="../../recursos/imagenes/e_p1_3_2.png" puntaje="2"  >mover a la posición “ON”</opcion>
+			<opcion  tipo="iz_s1" imagen="../../recursos/imagenes/e_p1_3_3.png" puntaje="3"  >mover a la posición “ON” </opcion>
+			<opcion  tipo="iz_s1" imagen="../../recursos/imagenes/e_p1_3_4.png" puntaje="4"  >mover a la posición “START”</opcion>
+
+		</izq>
+		
+		<de>
+			<opcion  tipo="de_s1" imagen="" puntaje="1"  >PASO 1</opcion>
+			<opcion  tipo="de_s1" imagen="" puntaje="2"  >PASO 2</opcion>
+			<opcion  tipo="de_s1" imagen="" puntaje="3"  >PASO 3</opcion>
+			<opcion  tipo="de_s1" imagen="" puntaje="4"  >PASO 4</opcion>
+		</de>
+	</pregunta>
+
+</contenido>

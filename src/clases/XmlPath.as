@@ -19,6 +19,8 @@ package clases
 		private var cargar:URLLoader ;
 		private var seCargo:Boolean;
 		private var realizar:Function;
+		private var tipo:String;
+		
 		
 	
 		
@@ -134,7 +136,74 @@ package clases
 		
 		
 		
+		
+		
+		
+		
+		public function getTipos():String{
+			return tipo;
+		}
+		
+		
+		/**
+		 * 
+		 consulta las rutas 
+		 * @return Array objec {tipo, titulo, contenido, url, tag} de las rutas de contenidos
+		 * 
+		 * */
+		public function getDatosEspef(idioma:String):Array
+		{
 			
+		
+			this.tipo="";
+			
+			var datos:Array=new Array();
+			
+			if(seCargo)
+			{
+				
+				for(var i:uint=0;i<miXML.path.length();i++)
+				{
+					this.tipo=miXML.path[i].@tipo+"";
+					var datos1:Object=new Object();
+					var path= miXML.path[i];
+					
+					if(idioma=="ESP")
+					{
+					
+							datos1.url= path.@ruta;
+							datos1.unidad= path.@id;
+							
+							datos1.titulo= path.esp.titulo+"";
+							datos1.contenido= path.esp.contenido+"";
+							datos1.tag= path.esp.tagS+"";
+							
+							
+					}
+					else{
+					
+						
+							datos1.url=path.@ruta;
+							datos1.unidad= path.@id;
+							
+							datos1.titulo= path.eng.titulo+"";
+							datos1.contenido= path.eng.contenido+"";
+							datos1.tag=path.eng.tagS+"";
+						
+					
+					}
+					
+			
+					datos.push(datos1);
+				}// fin del recorrido
+				
+				
+				
+			}
+			return datos;
+			
+		}
+				
 	
 	
 	}

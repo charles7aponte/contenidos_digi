@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="388" height="272" backgroundAlpha="0.0" backgroundColor="#FCFCFC"
+			   borderAlpha="1.0" borderVisible="false" chromeColor="#FFFFFF"
+			   close="closeWindow(event)" contentBackgroundAlpha="0.0" cornerRadius="5"
+			   creationComplete="init()" dropShadowVisible="false"
+			   skinClass="clases.skins.pop_acerca" styleName="notas">
+	
+		
+
+	<fx:Script>
+		<![CDATA[
+			import clases.Global;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			
+			
+			public function init():void{
+			
+				closeButton.addEventListener(MouseEvent.CLICK,	cerrar);
+						
+			}
+			
+			/****
+			 * acciones para cerrar el popup 
+			 * */
+			public  function acepta_bton(e:MouseEvent):void
+			{
+			
+				PopUpManager.removePopUp(this);
+							
+			}
+			
+			
+			
+			/****
+			 * acciones para cerrar el popup 
+			 * */
+			public  function cerrar(e:MouseEvent):void
+			{
+				
+				PopUpManager.removePopUp(this);
+				
+				
+			}
+			
+			/******
+			* cierra y remueve elemento del popup 
+			 * 
+			 * */
+			private function closeWindow(e:CloseEvent):void {
+				PopUpManager.removePopUp(this);
+				
+				//Global.motorPreguntas.siguientePregunta();
+				
+			}
+			
+		
+			
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Image x="-5" y="-29" width="387" height="255" smooth="false" smoothingQuality="default"
+			 source="assets/image/acerca/contenido.png"/>
+	
+	<s:Button id="closeButton" right="1" width="50" height="43" buttonMode="true"
+			  chromeColor="#FFCC00" 
+			  verticalCenter="-136"
+			  skinClass="clases.skins.skin_bton_acerca_cerrar"
+			  />
+	<s:Label x="158" y="23" width="220" height="22" fontSize="14" styleName="acerca"
+			 text="SOLUCIÓN DE CONFLICTOS"/>
+	<s:Label x="158" y="40" width="215" height="22" fontSize="14" styleName="acerca"
+			 text="CON CREATIVIDAD"/>
+	<s:Label x="160" y="65" width="215" height="22" fontSize="12" styleName="acerca"
+			 text="Versión 1.0"/>
+	<s:Label x="26" y="116" width="315" height="13" fontSize="14" styleName="acerca"
+			 text="Desarrollado por Parquesoft MetaTodos los derechos&#xd;"
+			 verticalAlign="top"/>
+	<s:Label x="26" y="136" width="315" height="13" fontSize="12" styleName="acerca"
+			 text="Todos los derechos reservados"
+			 verticalAlign="top"/>
+	<s:Label x="26" y="153" width="315" height="13" fontSize="12" styleName="acerca"
+			 text="2014"
+			 verticalAlign="top"/>
+
+	
+	
+</s:TitleWindow>

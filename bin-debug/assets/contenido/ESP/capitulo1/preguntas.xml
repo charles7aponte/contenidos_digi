@@ -3,7 +3,7 @@
 <contenido>
 	<conf cp="1" p_cp="10" ></conf>
 
-	<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="Que es el sistema G-1000"  puntos="1">
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="Que es el sistema G-1000"  puntos="1">
 		<opcion puntaje="1"  >Es un sistema integrado de vuelo por instrumentos fabricados por GARMIN normalmente compuesto por dos unidades de la pantalla, una que actúa como una pantalla principal de vuelo(PFD), y uno como una pantalla multi-función (MFD)</opcion>
 		<opcion puntaje="-1"  >Controla las frecuencias de navegación y comunicaciones de los waypoints, intercepciones, VOR y NAV.</opcion>
 		<opcion puntaje="-1"  >Reporta indicadores del motor (torque, temperatura, compresión Ng), del sistema eléctrico y combustible por medio de una barra llamada EIS</opcion>
@@ -12,7 +12,7 @@
 	</pregunta>
 	
 	
-	<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="Cuando encontramos en el (PFD) Inset Map o (MFD) Navigation Map Page del sistema TAWS un color amarillo que significa."  puntos="1">
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="Cuando encontramos en el (PFD) Inset Map o (MFD) Navigation Map Page del sistema TAWS un color amarillo que significa."  puntos="1">
 		<opcion puntaje="1"  >Terreno entre 1000 pies y 100 pies por debajo de la altitud de la aeronave</opcion>
 		<opcion puntaje="-1"  >Terreno entre 200 pies y 800  pies por debajo de la altitud de la aeronave</opcion>
 		<opcion puntaje="-1"  >Terreno entre 100 pies y 10 pies por encima de la altitud de la aeronave</opcion>
@@ -20,7 +20,7 @@
 	</pregunta>
 
 	
-	<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="Cuando encontramos en el (PFD) Inset Map o (MFD) Navigation Map Page del sistema TAWS un color rojo que significa."  puntos="1">
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="Cuando encontramos en el (PFD) Inset Map o (MFD) Navigation Map Page del sistema TAWS un color rojo que significa."  puntos="1">
 		<opcion puntaje="-1"  >Terreno por debajo de 200 pies por debajo de la altitud de la aeronave</opcion>
 		<opcion puntaje="1"  >Terreno por encima o dentro de 100 pies por debajo de la altitud de la aeronave</opcion>
 		<opcion puntaje="-1"  >Terreno por encima de 100 pies por encima de la altitud de la aeronave</opcion>
@@ -28,7 +28,7 @@
 	</pregunta>
 	
 	
-	<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="Cuando encontramos en el (PFD) Inset Map o (MFD) Navigation Map Page del sistema TAWS el color negro significa que:"  puntos="1">
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="Cuando encontramos en el (PFD) Inset Map o (MFD) Navigation Map Page del sistema TAWS el color negro significa que:"  puntos="1">
 		<opcion puntaje="-1"  >Terreno por más de 1500 pies por debajo de la altitud de la aeronave</opcion>
 		<opcion puntaje="-1"  >Terreno por menos de 1500 pies por arriba de la altitud de la aeronave</opcion>
 		<opcion puntaje="-1"  >Terreno con ninguna posibilidad de obstáculos</opcion>
@@ -36,7 +36,7 @@
 	</pregunta>
 	
 	
-		<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="El grupo del Menú “NRST” en la pantalla MFD corresponde a"  puntos="1">
+		<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="El grupo del Menú “NRST” en la pantalla MFD corresponde a"  puntos="1">
 		<opcion puntaje="-1"  >Corresponde todas páginas donde se hace una inspección de funcionamiento de los elementos hardware del sistema y de diagnóstico de transferencia de datos.</opcion>
 		<opcion puntaje="-1"  >Corresponde a todas las páginas donde se observa el tráfico aéreo, el estado del clima y la navegación general.</opcion>
 		<opcion puntaje="1"  >Corresponde a todas las páginas donde se ordena los waypoint, intercepciones, aeropuertos y frecuencias NAV y DOR cercanas a la posición de la aeronave. </opcion>
@@ -44,7 +44,7 @@
 	</pregunta>
 
 	
-	<pregunta tipo="SE2"  cp="1" ruta="app/evaluacion/pregunta_2.swf" texto="Escoja los enunciados correctos. La página “WEATHER …” se puede configurar su visualización para:"  puntos="3">
+	<pregunta tipo="SE2"  cp="1" ruta="assets/evaluacion/pregunta_2.swf" texto="Escoja los enunciados correctos. La página “WEATHER …” se puede configurar su visualización para:"  puntos="3">
 		<opcion puntaje="1"  >Observar VERTICAL y HORIZONTALMENTE el estado climatológico en la zona frontal del avión</opcion>
 		<opcion puntaje="1"  >Ajustar la zona y el rango radial de escaneo. </opcion>
 		<opcion puntaje="1"  >Ampliar o disminuir el rango de distancia de escaneo. </opcion>
@@ -54,7 +54,7 @@
 	
 	
 	
-	<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="La página  “Trip Planing” de la pestaña “WPT” se utiliza para:"  puntos="1">
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="La página  “Trip Planing” de la pestaña “WPT” se utiliza para:"  puntos="1">
 		<opcion puntaje="1"  >Planificar el viaje, determinar la distancia y el consumo de combustible, entre otra información. </opcion>
 		<opcion puntaje="-1"  >Crear un nuevo “waypoint” para poder agregarlo a los planes de vuelo a asociarlo como destino en una programación “Direc-to”.</opcion>
 		<opcion puntaje="-1"  >Visualizar la información que ha sido generada por el vuelo (la distancia recorrida, la máxima velocidad desarrollada, el promedio de velocidad y del consumo de combustible). </opcion>
@@ -64,7 +64,7 @@
 	
 	
 	
-	<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="En cual página se puede configurar el sistema GARMIN G-1000 para que las anunciaciones sean por voces MASCULINA/ o FEMENINA"  puntos="1">
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="En cual página se puede configurar el sistema GARMIN G-1000 para que las anunciaciones sean por voces MASCULINA/ o FEMENINA"  puntos="1">
 		<opcion puntaje="1"  >SYSTEM SETUP</opcion>
 		<opcion puntaje="-1"  >SYSTEM STATUS</opcion>
 		<opcion puntaje="-1"  >TAS</opcion>
@@ -73,7 +73,7 @@
 	</pregunta>
 	
 	
-	<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="En cual página se puede configurar el sistema GARMIM G-1000 las unidades de medida que se visualizan en pantalla (Temperatura, Altitud y velocidad vertical, combustible, etc)."  puntos="1">
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="En cual página se puede configurar el sistema GARMIM G-1000 las unidades de medida que se visualizan en pantalla (Temperatura, Altitud y velocidad vertical, combustible, etc)."  puntos="1">
 		<opcion puntaje="1"  >SYSTEM SETUP</opcion>
 		<opcion puntaje="-1"  >SYSTEM STATUS</opcion>
 		<opcion puntaje="-1"  >TAS</opcion>
@@ -83,7 +83,7 @@
 	
 	
 		
-	<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="En cual página se puede visualizar el conjunto de Aeropuertos cercanos a la posición actual del avión "  puntos="1">
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="En cual página se puede visualizar el conjunto de Aeropuertos cercanos a la posición actual del avión "  puntos="1">
 		<opcion puntaje="-1"  >SYSTEM SETUP</opcion>
 		<opcion puntaje="-1"  >SYSTEM STATUS</opcion>
 		<opcion puntaje="-1"  >TAS</opcion>
@@ -92,7 +92,7 @@
 	</pregunta>
 	
 	
-	<pregunta tipo="SE1"  cp="1" ruta="app/evaluacion/pregunta_1.swf" texto="En cual página se puede visualizar el tráfico aéreo en tiempo real"  puntos="1">
+	<pregunta tipo="SE1"  cp="1" ruta="assets/evaluacion/pregunta_1.swf" texto="En cual página se puede visualizar el tráfico aéreo en tiempo real"  puntos="1">
 		<opcion puntaje="-1"  >SYSTEM SETUP</opcion>
 		<opcion puntaje="-1"  >SYSTEM STATUS</opcion>
 		<opcion puntaje="-1"  >TAS</opcion>

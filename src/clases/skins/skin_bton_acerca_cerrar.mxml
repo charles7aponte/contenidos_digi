@@ -28,10 +28,10 @@
 				   chromeColor.disabled="#FFFFFF" contentBackgroundAlpha.disabled="0.0"
 				   width.down="40" height.down="39" chromeColor.down="#FFFFFF"
 				   contentBackgroundAlpha.down="0.0"
-				   width.over="40" height.over="39" chromeColor.over="#FFCC00"
-				   contentBackgroundAlpha.over="0.0" focusColor.over="#FFBA00"
+				   width.over="40" height.over="39" chromeColor.over="#FFFFFE"
+				   contentBackgroundAlpha.over="0.0" focusColor.over="#FCFBF8"
 				   width.up="40" height.up="39" chromeColor.up="#FFFFFF"
-				   contentBackgroundAlpha.up="0.0">
+				   contentBackgroundAlpha.up="0.0" focusColor.up="#FFFFFF">
      
     <fx:Metadata>
         <![CDATA[ 
@@ -159,19 +159,19 @@
     <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
 	
 	
-	<s:SWFLoader includeIn="up" left="0" right="0" top="0" bottom="0"
-				 source="assets/image/evaluacion/cerrar_2.png"/>
+	<s:Image includeIn="up" left="0" right="0" top="0" bottom="0" smooth="true"
+			 smoothingQuality="high" source="assets/image/acerca/cerrar_1.png"/>
 	
 	
-	<s:SWFLoader includeIn="over" left="0" right="0" top="0" bottom="0"
-				 source="assets/image/evaluacion/cerrar_1.png"/>
+	<s:Image includeIn="over" left="0" right="0" top="0" bottom="0" smooth="true"
+			 smoothingQuality="high" source="assets/image/acerca/cerrar_2.png"/>
 	
-	<s:SWFLoader includeIn="down" left="0" right="0" top="0" bottom="0"
-				 source="assets/image/evaluacion/cerrar_1.png"/>
+	<s:Image includeIn="down" left="0" right="0" top="0" bottom="0" smooth="true"
+			 smoothingQuality="high" source="assets/image/acerca/cerrar_2.png"/>
 	
 	
-	<s:SWFLoader includeIn="disabled" left="0" right="0" top="0" bottom="0"
-				 source="assets/image/evaluacion/cerrar_2.png"/>
+	<s:Image includeIn="disabled" left="0" right="0" top="0" bottom="0" smooth="true"
+			 smoothingQuality="high" source="assets/image/acerca/cerrar_2.png"/>
 	
 	
     

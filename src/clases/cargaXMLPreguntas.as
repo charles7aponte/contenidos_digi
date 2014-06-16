@@ -128,7 +128,7 @@ package clases
 			{
 				
 		
-				totalCapituos=int(miXML.conf.@cp);// se conoce el total de capitulos 
+				totalCapituos= int(miXML.conf.@cp);// se conoce el total de capitulos 
 				preguntaPorCapitulo=int(miXML.conf.@p_cp);// se conoce la cantidad de preguntas a realizar por capitulo 
 				
 				maximoNumeroPreguntas=totalCapituos*preguntaPorCapitulo;

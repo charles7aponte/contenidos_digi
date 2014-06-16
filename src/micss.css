@@ -3,13 +3,6 @@
 @namespace mx "library://ns.adobe.com/flex/mx";
 
 
-s|Group
-{
-	chromeColor: #4B3838;
-	contentBackgroundColor: #9A2A2A;
-
-	
-}
 	
 
 
@@ -18,12 +11,21 @@ s|Group
 	font-family: miFuenteIncrustada2;
 }
 
+@font-face {
+	src:url("assets/font/CFJackStory-Regular.ttf");
+	font-family: miFuenteIncrustada3;
+}
 
 
-CursorManager
-{
-	/* You can use PNGs, SWFs or JPEGs */
-	move: Embed(source="move.png");
+@font-face {
+	src:url("assets/font/futurah.ttf");
+	font-family: miFuenteIncrustada4;
+}
+
+.acerca{
+	font-family: miFuenteIncrustada4;
+	
+	
 }
 
 
@@ -31,6 +33,12 @@ CursorManager
 	font-family: miFuenteIncrustada;
 	lineHeight:20px;
 	
+}
+
+
+.notas{
+	font-family: miFuenteIncrustada3;
+	lineHeight:20px;
 }
 
 .fondo1{
@@ -47,6 +55,8 @@ CursorManager
 
 	
 }
+
+
 
 global
 {

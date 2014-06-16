@@ -20,7 +20,10 @@
 			import mx.controls.Menu;
 			import mx.managers.PopUpManager;
 			
+			import popup.pop_acerca;
 			import popup.popup_bloc;
+			
+			
 			
 			
 			/*****	VARIABLES */
@@ -33,9 +36,14 @@
 			private var altoContenido:int;// tmaaños original  alto del Ipad		
 			
 			
-			
-			
-			
+			//varaibles de evaluacion
+			private var cantidadErrores:int=0;	
+			private var posicionActuaPregunta:int=-1;
+			private var TiempoInicio:Date;
+			private var preguntas:Array=new Array();
+			private var maximoPreguntas:int=5;
+			private var preguntActual:Object;
+			private var maximaCantidadError:int=3;/// maneja la maxima cantidad de errorres 
 			
 			
 			
@@ -73,6 +81,9 @@
 			
 			public var xmlPaht:XmlPath = new XmlPath();
 			public var idioma:String = "ESP";
+			public var arrayBusqueda:Array=[];
+			public var tipo:String="conflictos";// si es conflictos o sexualidad
+			
 			
 			
 			private var seccion:int =0;// repesenta si esta la presentacion abierta con 2, 1 evaluacion , 0 por defecto
@@ -96,6 +107,9 @@
 			
 			
 			
+			
+			
+			
 			/**
 			 * llamada al popup
 			 * */
@@ -107,6 +121,27 @@
 				
 				//win.addEventListener(CloseEvent.CLOSE,cierreAutomatico);
 				
+			}
+			
+			
+			
+			/**
+			 * llamada al popup
+			 * */
+			
+			public  function popupAcerca():void {
+				var ventanaAcerca : pop_acerca = new pop_acerca();
+				PopUpManager.addPopUp(ventanaAcerca,this,false);
+				PopUpManager.centerPopUp(ventanaAcerca);
+				
+				//win.addEventListener(CloseEvent.CLOSE,cierreAutomatico);
+				
+			}
+			
+			
+			public function clickAcerca(e:MouseEvent):void{
+				popupAcerca();
+			
 			}
 			
 			
@@ -167,19 +202,14 @@
 			}
 			
 			
-			
-			
 			/************************
 			 * carga el XML de preguntas 
 			 * **/
 			public function cargarXMlPreguntas():void{
 		
-				
-				//xmlPreguntas.accionPorOpcion(seAbrioXML);
-				
-				Alert.show("--->"," --"+urlPreguntas[numeroUnidad-1]);
+		
+				xmlPreguntas.accionPorOpcion(seAbrioXMLEvaluacion);				
 				xmlPreguntas.leerXML(urlPreguntas[numeroUnidad-1]);
-				
 			
 			}
 			
@@ -191,11 +221,454 @@
 			 **/
 			public function cargarEvalucion(numero:int):void
 			{
+				
+				cargador_1.visible=true;
 				numeroUnidad=numero;
 				cargarXMlPreguntas();
 			
 			}
 			
+			
+			
+			/**
+			 * accion que debe realizar cuando termine de cargar el xml
+			 * 
+			 * *
+			 */
+			public function seAbrioXMLEvaluacion():void{
+				
+				
+				cantidadErrores=0;	
+				posicionActuaPregunta=-1;
+				
+				this.TiempoInicio=new Date();
+				preguntas=xmlPreguntas.consultarPreguntas();
+				
+				//guarda el numero de preguntas ultmos --> cambia si la cantidad de capitulo tiene un numero inferior de pregunta al que se solicto 
+				Global.numeroPreguntasEvaluacion =preguntas.length;				
+				maximoPreguntas=preguntas.length;	
+			
+				
+				//actualiza la barra de arriba de conteco debido al tiemmpo de carga
+				function actualizaBarra(event:TimerEvent):void
+				{
+					
+				/*	try{
+						
+						///=int(maximoPreguntas);
+						//posicionActuaPregunta);
+					}catch(e:Error){trace("ERROR barra_preguntas");}
+				*/	
+				}
+				var intervalo:Timer = new Timer(500, 4);
+				intervalo.addEventListener(TimerEvent.TIMER, actualizaBarra);
+				intervalo.start();
+				
+				//Alert.show("el tamañ de las preguntas es :: "+preguntas.length);
+				
+				//posicionActuaPregunta=0;
+				siguientePregunta();
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			///seguir a la otra pregunta
+			public  function siguientePregunta(): void 
+			{
+				posicionActuaPregunta++;
+				
+				/*try{
+					
+					(barra_preguntas.content as Object).cantidadPreguntas=int(maximoPreguntas);
+					(barra_preguntas.content as Object).preguntaNumero(posicionActuaPregunta);
+				}catch(e:Error){trace("ERROR barra_preguntas");}
+				*/
+				
+				
+				///si ya termino 
+				if(posicionActuaPregunta>= maximoPreguntas)//finalizo recrrectamen
+				{
+					
+					finalizoEvaluacion();
+					//reiniciar();
+					return ;
+				}
+				
+				
+				
+				
+				/*
+				//enso de ya haber perdido
+				if(cantidadErrores>=maximaCantidadError)
+				{
+				popupPerdio();//mensaje de perdistes
+				reiniciar();
+				return ;
+				
+				}
+				
+				*/
+				
+				
+				if(preguntas.length>0 && posicionActuaPregunta>=0 && posicionActuaPregunta<preguntas.length)
+				{
+					
+					
+					//Alert.show("poscion pregu "+posicionActuaPregunta+" -"+preguntas.length);
+					
+					var pregunta:Object=preguntas[posicionActuaPregunta] as Object;
+					cargarContenidoEvaluacion(pregunta);
+					
+					
+					var opciones_pregunta:Array=pregunta.opciones as Array;
+					var contenido_resputas_correctas:Array =new Array();
+					
+					for(var i:int=0;i<pregunta.opciones.length;i++)
+					{
+						// es una opcion correcta
+						if( (pregunta.opciones[i].puntaje as int)>0) 
+						{
+							
+						//	contenido_resputas_correctas.push(" -"+ManejoString.ingresarSaltoLineas(pregunta.opciones[i].texto,60));
+						}
+						
+					}
+					
+					
+					//Global.MPrespuesta_correct=contenido_resputas_correctas;
+					
+					
+					
+				}
+				
+			}
+			
+
+			
+			
+			
+			
+			
+			/**************************
+			 * *
+			 * click funcion busqueda
+			 * */
+			public function click_busqueda(e:MouseEvent):void{
+			
+				seccion=4;
+				activarEnPresentacion();
+				cargarSWFContenidoBusqueda();
+				
+			}
+			
+			
+			
+			/***cargar vista contenedor (Swf)
+			 * para el buscador 
+			 * 
+			 * */			
+			public  function cargarSWFContenidoBusqueda():void{
+				
+				
+				var loaderSWF:Loader=new Loader();
+				var ns:String = new String("?nc=" + Math.random().toString());
+				
+				
+				
+				loaderSWF.load(new URLRequest(Global.RUTA_SWF_BUSQUEDA + ns));
+				loaderSWF.contentLoaderInfo.addEventListener(Event.COMPLETE, insertMovie);
+				
+				
+				function insertMovie(e:Event):void{ 
+					
+					var mi_swf:Object=null;
+					
+					
+					//pantallaIpad.removeChildren();
+					pantallaIpad.unloadAndStop();	//elimina todo lo anterior guardado
+					
+					mi_swf = e.target.content;
+					
+					pantallaIpad.source=(loaderSWF);
+					
+					///ENLAZAR EVETOS CON EL FLEX
+					try{
+						
+						if(mi_swf['cargarDatos'])
+						{
+							
+							mi_swf.set_idioma(idioma);
+							
+							mi_swf.cargarDatos(arrayBusqueda, tipo);
+							
+							mi_swf.cargarUnidad= cargaPresentacion1;
+							
+							
+						}
+						// DAR COMUNICACION CON FLEX
+						//mi_swf.nuevaPregunta_e=siguientePregunta;
+						
+						
+					}
+					catch(e:Error){
+						trace("error en insertMovie()");
+					}
+					
+					//quitar el preload
+					cargador_1.visible=false;
+					
+				}//fin funcion interna insertar	
+				
+				
+			}				
+
+			
+			
+			
+				
+			
+			
+			/***cargar vista contenedor (Swf)
+			 * 
+			 * */			
+			public  function cargarContenidoEvaluacion(data:Object):void{
+				
+				
+				
+				
+				var ruta:String=data.ruta;   //ruta de ubicacion del SWF
+				var loader:Loader = new Loader();
+				var ns:String = new String("?nc=" + Math.random().toString());
+				
+				
+				loader.load(new URLRequest(ruta + ns));
+				
+				//loader.load(request);
+				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, insertMovie);
+				
+				
+				
+				function insertMovie(e:Event):void{ 
+					
+					//pantallaIpad.removeChildren();
+					pantallaIpad.unloadAndStop();	//elimina todo lo anterior guardado
+					
+					preguntActual=e.target.content;
+					
+					//contenido_pregunta.removeChildren();
+					/*loader.width=contenido_pregunta.width;
+					loader.height=contenido_pregunta.height;
+					*/
+					
+					 pantallaIpad.source=(loader);
+					
+				
+					
+					//trace (" + "+preguntActual['cargarDatos']);
+					///ENLAZAR EVETOS CON EL FLEX
+					try{
+						if(preguntActual['cargarDatos'])
+						{
+							preguntActual.cargarDatos(data);
+							
+						}
+						// DAR COMUNICACION CON FLEX
+						preguntActual.nuevaPregunta_e=siguientePregunta;
+						preguntActual.accionNoPasar_e=contadoreFallas;
+						preguntActual.accionPasar_e=popCorrecto;
+						
+						
+					}
+					catch(e:Error){
+						trace("error en insertMovie()");
+					}
+					
+					
+					
+				
+					//CONFIGURACION DE DATOS VISUALES .. CONTADOR DE PREGUNTAS E IDIOMA
+					try{
+						if(preguntActual['set_contador'] && preguntActual['set_idioma'])
+						{
+							preguntActual.set_contador((1+posicionActuaPregunta)+"/"+maximoPreguntas);
+							preguntActual.set_idioma(this.idioma);
+						}
+											}
+					catch(e:Error){
+						trace("error en insertMovie()2");
+					}
+					
+					
+					preguntActual.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+					//contenido_pregunta.content.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+				}
+				
+				
+				//quitar el preload
+				cargador_1.visible=false;
+			}	
+			
+			
+			
+			
+			/**
+			 * Crea el popup de mensaje de al finalizar de
+			 *  forma incorrecta la evaluación
+			 * */			
+			private function popCorrecto():void {
+				/*var win : popRespuestaCorrecta = new popRespuestaCorrecta();
+				PopUpManager.addPopUp(win,this,true);
+				PopUpManager.centerPopUp(win);
+				*/
+				
+				siguientePregunta();
+			}
+			
+
+			
+			
+			
+			/**
+			 * 
+			 * las acciones a realizar en caso de equivocarse
+			 * */
+			public function contadoreFallas():void
+			{
+				this.cantidadErrores++;
+				
+				
+				
+				if(cantidadErrores>0 && cantidadErrores<= maximaCantidadError ///&& cantidadErrores<=listaVisdas.length)
+				)
+					{
+					
+				/*	try{
+						var swf:Object=listaVisdas[cantidadErrores-1].content; 
+						
+						swf.muerto();// animacion desde el swf
+						
+					}catch(e1:Error)
+					{
+						trace("ERROR ico_p_3 case 1");
+					}
+				*/	
+					
+					
+				}
+				
+				
+				//abri la popup de abrir 
+				//popIncorrecto();
+				siguientePregunta();
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			/**
+			 *  accion al finalizar todo correctamente
+			 * */
+			public function finalizoEvaluacion():void{
+				
+				var tiempoActual:Date=  new Date();
+				
+				
+				
+				
+				var resultadoPreguntas:Array=new Array();
+				
+				//	Alert.show(""+TiempoInicio);
+				
+				var s:int=int( tiempoActual.seconds-TiempoInicio.seconds);
+				var h:int=int(tiempoActual.hours-TiempoInicio.hours);
+				var m:int = int(tiempoActual.minutes-TiempoInicio.minutes);
+				
+				var si:String="";
+				var hi:String="";
+				var mi:String="";
+				
+				
+				// validacion si dio negativos 
+				
+				
+				
+				if(s<0)
+				{
+					s=tiempoActual.seconds;
+					si=""+s;
+				}
+				else if(s<10)
+				{
+					si="0"+s;
+					
+				}
+				else{
+					si=""+s;
+				}
+				
+				
+				//horas
+				if(h<0)
+				{
+					h=tiempoActual.hours;
+					hi=""+h;
+				}
+				else if(h<10)
+				{
+					hi="0"+h;
+				}
+				else 
+				{
+					hi=""+h;
+				}
+				
+				
+				//minutos
+				if(m<0)
+				{
+					m=tiempoActual.minutes;
+					mi=m+"";
+				}
+				else if(m<10)
+				{
+					mi="0"+m;
+				}
+				else{
+					mi=""+m;
+				}
+				
+				var ace:Number=(int(((this.maximoPreguntas-cantidadErrores)/maximoPreguntas)*100)/100)*100;//porcentaje de pregunta acertadas
+				
+				///llena rsultados
+				resultadoPreguntas.push("El Tiempo : "+hi+":"+mi+":"+si+" (HH:mm:ss )");
+				resultadoPreguntas.push("Respuestas Acertadas "+(int(ace*100))/100+"%");
+				resultadoPreguntas.push("Numero preguntas : "+this.maximoPreguntas);
+				
+				
+				
+				Alert.show( " "+"El Tiempo : "+hi+":"+mi+":"+si+" (HH:mm:ss )\n" +
+					"Respuestas Acertadas "+(int(ace*100))/100+"%\n"
+					+"Numero preguntas : "+this.maximoPreguntas,"");
+				/*
+				Global.MPresultado_preguntas=resultadoPreguntas;
+				Global.aprobo=ace;
+				
+				var ventanaFinalizo : popFinalizo = new popFinalizo();
+				PopUpManager.addPopUp(ventanaFinalizo,this,true);
+				PopUpManager.centerPopUp(ventanaFinalizo);
+				*/
+				
+			}
 			
 			
 			/*****************************
@@ -231,22 +704,21 @@
 						urlSwf[i]=partesRuta[0]+"/"+ this.idioma+"/"+partesRuta[1]+Global.swf;
 						
 						urlPreguntas[i]=partesRuta[0]+"/"+ this.idioma+"/"+partesRuta[1]+Global.pregunta;
-						trace("........---------------> "+urlPreguntas[i])
+						
+						//lista de datos  para busurlSwf[i]queda
+					
+						
 					}
 					
 					
 					
 				 }
 				 
-				 Alert.show(""+Global.RUTA_PRESENTACION_EVALUACION+"--->","");
 				 
 				 
 				 ///cambia la ruta de evaluacion segun el idioma
 				 var partesRuta:Array=	 Global.RUTA_PRESENTACION_EVALUACION.split("/$IDIOMA$/");
-				 
-				// Alert.show(""+Global.RUTA_SWF_PRESENTACION+"--->",""+partesRuta[0]);
 				
-				 
 				 if(partesRuta.length>=2)
 				 {
 					 ruta_evaluacion_presentacion=partesRuta[0]+"/"+ this.idioma+"/"+partesRuta[1];
@@ -254,6 +726,14 @@
 				 }
 				 	 
 				
+				 ///cambia la ruta presentacion segun el idioma
+				 partesRuta=	 Global.RUTA_SWF_PRESENTACION.split("/$IDIOMA$/");
+				 if(partesRuta.length>=2)
+				 {
+					 urlPresentacion=partesRuta[0]+"/"+ this.idioma+"/"+partesRuta[1];
+				 }
+				 
+				 
 					
 			 }
 			
@@ -381,31 +861,17 @@
 				
 				
 				bton_presentacion.addEventListener(MouseEvent.CLICK,clickEnPresentacion);
-				bton_evaluacion.addEventListener(MouseEvent.CLICK,clickEvaluacion);
-				bton_buscar.addEventListener(MouseEvent.CLICK,function(e:MouseEvent){
-				
-					
-					var miSwf:Object=(pantallaIpad.content as  Object);
-					
-					
-					if(miSwf && miSwf['cargarEvaluacion1'])
-					{
-						
-						
-						miSwf.cargarEvaluacion1(777777777777777777);
-						
-					}
-				
-					
-				
-				});
-				
+				bton_evaluacion.addEventListener(MouseEvent.CLICK,clickEvaluacion);			
+				bton_buscar.addEventListener(MouseEvent.CLICK,click_busqueda);
+				bton_idioma_eng.addEventListener(MouseEvent.CLICK,click_eng);
+				bton_idioma_esp.addEventListener(MouseEvent.CLICK,click_esp);
 				
 				cerrar.addEventListener(MouseEvent.CLICK,clickEnCerrar);
 				fondo_salidar_Ipad.addEventListener(MouseEvent.CLICK,clickCerrarPresentacion);
 				imagen_dispositivo.addEventListener(MouseEvent.CLICK,clickAbrirPresentacion);
+				bton_acerca.addEventListener(MouseEvent.CLICK, clickAcerca);
 				bton_bloc.addEventListener(MouseEvent.CLICK, clickBloc);
-				
+					
 				
 				
 				
@@ -413,6 +879,12 @@
 				bton_presentacion.addEventListener(MouseEvent.ROLL_OUT,normal);
 				bton_evaluacion.addEventListener(MouseEvent.ROLL_OVER,resaltar);
 				bton_evaluacion.addEventListener(MouseEvent.ROLL_OUT,normal);
+				bton_buscar.addEventListener(MouseEvent.ROLL_OVER,resaltar);
+				bton_buscar.addEventListener(MouseEvent.ROLL_OUT,normal);
+				bton_bloc.addEventListener(MouseEvent.ROLL_OVER,resaltar);
+				bton_bloc.addEventListener(MouseEvent.ROLL_OUT,normal);
+				
+				
 				
 				
 				
@@ -425,6 +897,25 @@
 				xmlPaht.accionAlCargar(function():void{
 					
 					miURLExpresion= xmlPaht.consultaRutas();
+					arrayBusqueda= xmlPaht.getDatosEspef(idioma);
+					tipo= xmlPaht.getTipos();
+					
+					
+						for(var i:int=0; i<arrayBusqueda.length ; i++)
+						{
+							var partesRuta:Array=	 (arrayBusqueda[i].url+"").split("/$IDIOMA$/");
+							
+							if(partesRuta.length>=2)
+							{
+								arrayBusqueda[i].url=partesRuta[0]+"/"+ idioma+"/"+partesRuta[1]+Global.swf;
+								
+							}
+							
+							
+							
+						}
+					
+					
 					actualizaRutasIdioma();
 					cargarMenuPresentacion();
 					});
@@ -449,6 +940,74 @@
 			
 		
 			
+			/*************selecion el idma ingles***/
+			public function click_eng(e:MouseEvent):void{
+			
+				idioma="ESP";
+				arrayBusqueda= xmlPaht.getDatosEspef(idioma);
+				tipo= xmlPaht.getTipos();
+				
+				
+				for(var i:int=0; i<arrayBusqueda.length ; i++)
+				{
+					var partesRuta:Array=	 (arrayBusqueda[i].url+"").split("/$IDIOMA$/");
+					
+					if(partesRuta.length>=2)
+					{
+						arrayBusqueda[i].url=partesRuta[0]+"/"+ idioma+"/"+partesRuta[1]+Global.swf;
+						
+					}
+					
+					
+					
+				}
+				
+				bton_idioma_eng.visible=false;
+				bton_idioma_eng.width=0;
+				bton_idioma_esp.visible=true;
+				bton_idioma_esp.width=40;
+				
+				actualizaRutasIdioma();
+				cargarMenuPresentacion();
+			}
+			
+			
+		
+			
+			
+			
+			
+			/*************selecion el idma español ***/
+			public function click_esp(e:MouseEvent):void{
+				
+				idioma="ENG";
+				arrayBusqueda= xmlPaht.getDatosEspef(idioma);
+				tipo= xmlPaht.getTipos();
+				
+				
+				for(var i:int=0; i<arrayBusqueda.length ; i++)
+				{
+					var partesRuta:Array=	 (arrayBusqueda[i].url+"").split("/$IDIOMA$/");
+					
+					if(partesRuta.length>=2)
+					{
+						arrayBusqueda[i].url=partesRuta[0]+"/"+ idioma+"/"+partesRuta[1]+Global.swf;
+						
+					}
+					
+					
+					
+				}
+				
+				bton_idioma_eng.visible=true;
+				bton_idioma_eng.width=40;
+				bton_idioma_esp.visible=false;
+				bton_idioma_esp.width=0;
+				
+				
+				actualizaRutasIdioma();
+				cargarMenuPresentacion();
+			}
 			
 			
 			
@@ -480,10 +1039,11 @@
 			 * **/
 			private function clickEnPresentacion(e:MouseEvent):void{
 			
-				seccion=1;			
+				seccion=2;			
 				
 				presentacion_html.visible=true;				
 				pantallaIpad.visible=false;
+				cargador_1.visible=false;
 				tooglePresentacion();				
 				
 			
@@ -527,26 +1087,30 @@
 				//trace("LA PRESSENTACION ES ::: "+urlPresentacion);
 				
 				//carga por defecto la seccion 0
-				if(seccion==1)
+				if(seccion!=2)
 				{
 					presentacion_html.visible=false;
 				}
 				
-				pantallaIpad.visible=true;
-				seccion=0;
 				
+					pantallaIpad.visible=false;
 				
-			
-			  
+				  
 			   
 			   cargarSWFContenido(urlPresentacion,function():void{
+				Alert.show(" ", " "+urlPresentacion);	
+					var swf:Object=null;
 					
-				
+					try{
+						swf=(pantallaIpad.content as Object);
+						pantallaIpad.visible=true;
+					}
+					catch(e:Error){trace("ERROR _cargar swf:Object");
+						pantallaIpad.visible=true;
+					}
 					
 					
-					var swf:Object=(pantallaIpad.content as Object);
-				
-					//if(swf && swf['presentacion_1'])
+					if(swf && swf['presentacion_1'])
 					{
 						
 						
@@ -586,15 +1150,13 @@
 						};
 						
 						
-						
-						
 						trace("paso "+swf.presentacion_1);
 						
 					
 					}
 					
 			
-				});	
+				});/// fin accion 	
 			
 			
 			}
@@ -611,7 +1173,7 @@
 			 * */
 			public function cargaPresentacion1(numero:int):void{
 				
-			
+				numeroUnidad= numero+1;
 				
 				
 				cargarSWFContenido(urlSwf[numero],function():void{
@@ -701,10 +1263,14 @@
 		
 				if(contenidoFull)
 				{
+					try{
 					cerrarPresentacion();
+					}catch(e:Error){trace("ERROR cerrar presentacion");}
 				}
 				else{
-					activarEnPresentacion();
+					try{
+						activarEnPresentacion();
+					}catch(e:Error){trace("ERROR cerrar presentacion");}
 				}
 			
 			} 
@@ -723,16 +1289,21 @@
 			
 			
 			
+			
 			/*************************
 			 * carga la evaluacion 
 			 * 
 			 * **/
 			public function clickEvaluacion(e:MouseEvent):void{
-			 trace("la ruta es :::: "+ruta_evaluacion_presentacion);
-			
+				
+				seccion=1;
+			    pantallaIpad.visible=false;
+				activarEnPresentacion();
+			    	
+				//funcion que carga el contenido
 				cargarSWFContenido(ruta_evaluacion_presentacion,function():void{
-					
-						
+				
+							
 						try
 						{
 							
@@ -770,15 +1341,9 @@
 			
 				var loader:Loader = new Loader();
 				loader.load(new URLRequest(url));
-				
 				cargador_1.visible=true;
-			
-				
-				
 				
 				pantallaIpad.load(url);
-				
-		
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, insertMovie);
 				loader.addEventListener(IOErrorEvent.IO_ERROR, errorSwf);
 				loader.addEventListener(IOErrorEvent.IO_ERROR, errorSwf);
@@ -790,17 +1355,11 @@
 				}
 				
 				
-				
-				 
-				
 				//cargarContenidCompleto=function insertMovie(evt:Event):void{	
 				function insertMovie(evt:Event):void{
-						///pantallaIpad.unloadAndStop();
-						
-					
-						
-					
-						pantallaIpad.source=loader;
+			
+					pantallaIpad.unloadAndStop();	//elimina todo lo anterior guardado
+					pantallaIpad.source=loader;
 						
 						var timer:Timer = new Timer(601, 2);
 						timer.addEventListener(TimerEvent.TIMER, enlaceSwfToFlex);
@@ -810,21 +1369,17 @@
 							//solo del menu derecho con swf}	
 							accion();
 							cargador_1.visible=false;
-							
+							pantallaIpad.visible=true;
 															
 							
 						}
 					
-						
-						
-						
-						
-					
-						
-						
 					}
 			
 			}//fin de la funcion  cargarSWFContenido
+			
+			
+			
 			
 			
 			
@@ -1042,9 +1597,11 @@
 			public function  activarEnPresentacion():void{
 				//ajustaPantatalla();
 				
+				
 				if(contenidoFull==false){
 					fondo_salidar_Ipad.visible=true;
 					
+
 					numeroEscala=setEscala(0.98);
 			
 					
@@ -1092,6 +1649,7 @@
 					toogleBanner();
 					contenidoFull=true;
 					grupo_botones.visible= false;
+					
 					
 					
 				}
@@ -1142,13 +1700,13 @@
 					
 					/// valiciona del tipo de contenido que debe mostrar
 					// muestra por defecto el home
-					if(seccion==1)
+					if(seccion==2)
 					{
 						presentacion_html.visible=false;
 					}
 					
 					pantallaIpad.visible=true;
-					seccion=0;
+					
 					
 					
 					fondo_salidar_Ipad.visible=false;
@@ -1462,7 +2020,8 @@
 					
 					<!-- bton 1 -->
 					<s:VGroup id="bton_evaluacion" left="0" right="0" width="100%" height="24%" gap="0"
-							  horizontalAlign="center">
+							  horizontalAlign="center"
+							  buttonMode="true">
 						<s:Image x="0" y="0" width="90%" height="90%" scaleMode="letterbox"
 								 smooth="true" smoothingQuality="high"
 								 source="@Embed('assets/image/btonLateral1.png')"/>
@@ -1490,11 +2049,12 @@
 					
 					<!-- bton 3 -->
 					<s:VGroup id="bton_bloc"
+							  buttonMode="true"
 						left="0" right="0" width="100%" height="24%" gap="0"
 							  horizontalAlign="center">
 								  	<s:Image x="0" y="0" width="90%" height="90%" scaleMode="letterbox"
 												  smooth="true" smoothingQuality="high"
-							 source="assets/image/btonLateral3.png"/>
+							 source="assets/image/btonLateral3.png"  buttonMode="true"/>
 						<s:Label left="0" right="0" bottom="-10" height="25" color="#00777B"
 								 fontSize="14" paddingLeft="5" styleName="titulo_menuDe"
 								 textAlign="center" verticalAlign="top">Bloc de notas</s:Label>
@@ -1502,9 +2062,11 @@
 					
 					<!-- bton 4 -->
 					<s:VGroup id="bton_buscar" left="0" right="0" width="100%" height="24%" gap="0"
-							  horizontalAlign="center">
+							  horizontalAlign="center"
+							  buttonMode="true">
 								  	<s:Image x="0" y="0" width="90%" height="90%" scaleMode="letterbox"
 												  smooth="true" smoothingQuality="high"
+												  buttonMode="true"
 							 source="assets/image/btonLateral4.png"/>
 						<s:Label left="0" right="0" bottom="-10" height="25" color="#2B3F60"
 								 fontSize="14" paddingLeft="5" styleName="titulo_menuDe"
@@ -1531,7 +2093,7 @@
 				<!-- barra de logos -->
 				<s:VGroup left="5" bottom="50" width="100%" height="45%" gap="10"
 						  horizontalAlign="center" verticalAlign="bottom">
-					<s:Image width="158" height="42" smooth="true" smoothingQuality="high"
+					<!--<s:Image width="158" height="42" smooth="true" smoothingQuality="high"
 							 source="assets/image/minTic.png">						
 					</s:Image>
 					
@@ -1544,7 +2106,12 @@
 					
 					<s:SWFLoader width="100%" height="20%" source="assets/swf/parque.swf">						
 					</s:SWFLoader>
+					-->
+					
+					<s:SWFLoader width="100%" height="100%" source="assets/swf/iconos.swf">						
+					</s:SWFLoader>
 				</s:VGroup>
+				
 			</s:Group>
 			
 			
@@ -1599,13 +2166,22 @@
 			
 			
 			<!--  botones de configuracion --> 
-			<s:HGroup id="grupo_botones" right="5" top="5" width="139" height="40" >
+			<s:HGroup id="grupo_botones" right="5" top="5" width="191" height="40">
+				<s:SWFLoader id="bton_idioma_eng" width="0" height="40" source="assets/swf/bton_idioma_eng.swf">
+					
+				</s:SWFLoader>
+				
+				<s:SWFLoader  id="bton_idioma_esp" width="40" height="40" source="assets/swf/bton_idioma_esp.swf">
+					
+				</s:SWFLoader>
+				
+				
 				<s:SWFLoader width="40" height="40" source="assets/swf/btonPregunta.swf">
 					
 				</s:SWFLoader>
 				
 				
-				<s:SWFLoader  width="40" height="40" source="assets/swf/btonI.swf">
+				<s:SWFLoader id="bton_acerca" width="40" height="40" source="assets/swf/btonI.swf">
 					
 				</s:SWFLoader>
 				

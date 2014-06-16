@@ -1,18 +1,108 @@
 <?xml version="1.0"  encoding="UTF-8"?> 
 <contenido>
-	<path  id="1" texto="" ruta="assets/contenido/$IDIOMA$/capitulo1/">
+	<path  id="0" texto="" ruta="assets/contenido/$IDIOMA$/capitulo1/" tipo="conflictos">
+		<esp>
+			<titulo>CAPITULO 1. Educación en Valores</titulo>
+			<contenido>¡Mero recibe una fuerte lección por su irreverencia! Su habitual comportamiento le jugó una mala pasada. ¿Podrá Mero enderezar su actitud frente a las personas?
+			</contenido>
+			<palabras></palabras>
+		</esp>
+		
+		<eng>
+			<titulo> CHAPTER 1. Values ​​Education</titulo>
+			
+			<contenido> Mero receives a strong lesson for their irreverence! His usual behavior played a trick on him. Can Mero straighten his attitude to people 
+			</contenido>
+			
+			<palabras></palabras>
+		</eng>
+	
 	</path>
 
-	<path  id="2" texto="" ruta="assets/contenido/$IDIOMA$/capitulo2/">
+	
+	
+	
+	<path  id="1" texto="" ruta="assets/contenido/$IDIOMA$/capitulo2/" tipo="conflictos">
+		<esp>
+			<titulo>CAPITULO 2. Comunicación Asertiva = Comunicación eficaz</titulo>
+			<contenido>Lo que parecía ser una tranquila conversación, termina en una triste agresión… ¿Podrán Juanita y Aimara mejorar su comunicación?
+			</contenido>
+			<palabras>parecía conversación triste agresión Juanita y Aimara  comunicación</palabras>
+		</esp>
+		
+		<eng>
+			<titulo> CHAPTER 2. Assertive Communication =  Effective Communication</titulo>
+			
+			<contenido> What seemed to be a quiet conversation ends in a sad aggression ... Will Juanita and Aymara improve communication?
+			</contenido>
+			
+			<palabras>Juanita looked sad conversation aggression and communication Aimara</palabras>
+		</eng>
 	</path>	
+	
+	
+	
 
-	<path  id="3" texto="" ruta="assets/contenido/$IDIOMA$/capitulo3/">
+	
+	
+	<path  id="2" texto="" ruta="assets/contenido/$IDIOMA$/capitulo3/" tipo="conflictos">
+		<esp>
+			<titulo>CAPITULO 3. Conflicto Interpersonal y las Relaciones</titulo>
+			<contenido>Brost se ha enojado con Juanita por haber tomado su Tablet nueva sin permiso… ¿Cómo afrontará Brost esta situación? 
+			</contenido>
+			<palabras>Brost  enojado Juanita  situación</palabras>
+		</esp>
+		
+		<eng>
+			<titulo>CHAPTER 3. Interpersonal Conflict and Relationships</titulo>
+			
+			<contenido>Brost was angry with Juanita for taking your new tablet without permission ... How Brost will face this situation?
+			</contenido>
+			
+			<palabras></palabras>
+		</eng>
+		
 	</path>
 
-	<path  id="4" texto="" ruta="assets/contenido/$IDIOMA$/capitulo4/">
+	
+	
+	
+	<path  id="3" texto="" ruta="assets/contenido/$IDIOMA$/capitulo4/" tipo="conflictos">
+		<esp>
+			<titulo>CAPITULO 4. Convivencia escolar</titulo>
+			<contenido>Juanita está muy afectada por el recibimiento que le hicieron sus nuevos compañeros.  Al parecer su convivencia en el colegio va a tener grandes tropiezos. ¿Será que esto puede cambiar?
+			</contenido>
+			<palabras>Brost  enojado Juanita  situación</palabras>
+		</esp>
+		
+		<eng>
+			<titulo> CHAPTER 4. Coexistence school</titulo>
+			
+			<contenido>Juanita is greatly affected by the reception they did their new teammates. Apparently their coexistence at school is going to have major incidents. Will this be changed?
+			</contenido>
+			
+			<palabras></palabras>
+		</eng>
 	</path>
+	
+	
 
-	<path  id="5" texto="" ruta="assets/contenido/$IDIOMA$/capitulo5/">
+	<path  id="4" texto="" ruta="assets/contenido/$IDIOMA$/capitulo5/" tipo="conflictos">
+		<esp>
+			<titulo>CAPITULO 1. Educación en Valores</titulo>
+			<contenido>¡Mero recibe una fuerte lección por su irreverencia! Su habitual comportamiento le jugó una mala pasada. ¿Podrá Mero enderezar su actitud frente a las personas?
+			</contenido>
+			<palabras></palabras>
+		</esp>
+		
+		<eng>
+			<titulo> CHAPTER 1. Values ​​Education</titulo>
+			
+			<contenido> Mero receives a strong lesson for their irreverence! His usual behavior played a trick on him. Can Mero straighten his attitude to people 
+			</contenido>
+			
+			<palabras></palabras>
+		</eng>
 	</path>	
 	
 </contenido>	
