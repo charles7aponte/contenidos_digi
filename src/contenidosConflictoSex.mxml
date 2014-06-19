@@ -104,10 +104,7 @@
 			}
 			
 			
-			
-			
-			
-			
+
 			
 			
 			/**
@@ -734,6 +731,26 @@
 				 }
 				 
 				 
+				 
+				 
+				 if(idioma=="ESP")
+				 {
+					 label_eval.text="Evalución";
+					 label_pres.text="Presentación";
+					 label_bloc.text="Bloc de notas"
+					 label_busq.text="Búsqueda";
+					 
+				 }else{
+				 
+					 {
+						 label_eval.text="Evaluation";
+						 label_pres.text="Presentation";
+						 label_bloc.text="Memo pad"
+						 label_busq.text="Serch";
+						 
+					 }
+				 
+				 }
 					
 			 }
 			
@@ -940,35 +957,41 @@
 			
 		
 			
-			/*************selecion el idma ingles***/
-			public function click_eng(e:MouseEvent):void{
-			
-				idioma="ESP";
-				arrayBusqueda= xmlPaht.getDatosEspef(idioma);
-				tipo= xmlPaht.getTipos();
-				
-				
-				for(var i:int=0; i<arrayBusqueda.length ; i++)
-				{
-					var partesRuta:Array=	 (arrayBusqueda[i].url+"").split("/$IDIOMA$/");
+			/*************selecion el idma español***/
+			public function click_esp(e:MouseEvent):void{
+			  if(idioma!="ESP")
+			  {
+					idioma="ESP";
+					arrayBusqueda= xmlPaht.getDatosEspef(idioma);
+					tipo= xmlPaht.getTipos();
 					
-					if(partesRuta.length>=2)
+					
+					for(var i:int=0; i<arrayBusqueda.length ; i++)
 					{
-						arrayBusqueda[i].url=partesRuta[0]+"/"+ idioma+"/"+partesRuta[1]+Global.swf;
+						var partesRuta:Array=	 (arrayBusqueda[i].url+"").split("/$IDIOMA$/");
+						
+						if(partesRuta.length>=2)
+						{
+							arrayBusqueda[i].url=partesRuta[0]+"/"+ idioma+"/"+partesRuta[1]+Global.swf;
+							
+						}
+						
+						
 						
 					}
 					
+				
+					
+					actualizaRutasIdioma();
+					cargarMenuPresentacion();
 					
 					
-				}
-				
-				bton_idioma_eng.visible=false;
-				bton_idioma_eng.width=0;
-				bton_idioma_esp.visible=true;
-				bton_idioma_esp.width=40;
-				
-				actualizaRutasIdioma();
-				cargarMenuPresentacion();
+					ocultarW_ico_eng.play();
+					ocultarH_ico_eng.play();
+					
+					mostrarW_ico_esp.play();
+					mostrarH_ico_esp.play();
+			  }
 			}
 			
 			
@@ -977,36 +1000,46 @@
 			
 			
 			
-			/*************selecion el idma español ***/
-			public function click_esp(e:MouseEvent):void{
-				
-				idioma="ENG";
-				arrayBusqueda= xmlPaht.getDatosEspef(idioma);
-				tipo= xmlPaht.getTipos();
-				
-				
-				for(var i:int=0; i<arrayBusqueda.length ; i++)
-				{
-					var partesRuta:Array=	 (arrayBusqueda[i].url+"").split("/$IDIOMA$/");
+			/*************selecion el idma ingles
+			 *  ***/
+			public function click_eng(e:MouseEvent):void{
+				if(idioma!="ENG")
+				{Alert.show("inges","ingels");
 					
-					if(partesRuta.length>=2)
+					idioma="ENG";
+					arrayBusqueda= xmlPaht.getDatosEspef(idioma);
+					tipo= xmlPaht.getTipos();
+					
+					
+					for(var i:int=0; i<arrayBusqueda.length ; i++)
 					{
-						arrayBusqueda[i].url=partesRuta[0]+"/"+ idioma+"/"+partesRuta[1]+Global.swf;
+						var partesRuta:Array=	 (arrayBusqueda[i].url+"").split("/$IDIOMA$/");
+						
+						if(partesRuta.length>=2)
+						{
+							arrayBusqueda[i].url=partesRuta[0]+"/"+ idioma+"/"+partesRuta[1]+Global.swf;
+							
+						}
+						
+						
 						
 					}
 					
+				
 					
 					
+					actualizaRutasIdioma();
+					cargarMenuPresentacion();
+					
+					
+					ocultarW_ico_esp.play();
+					ocultarH_ico_esp.play();
+					
+					mostrarW_ico_eng.play();
+					mostrarH_ico_eng.play();
+				
 				}
 				
-				bton_idioma_eng.visible=true;
-				bton_idioma_eng.width=40;
-				bton_idioma_esp.visible=false;
-				bton_idioma_esp.width=0;
-				
-				
-				actualizaRutasIdioma();
-				cargarMenuPresentacion();
 			}
 			
 			
@@ -1098,7 +1131,7 @@
 				  
 			   
 			   cargarSWFContenido(urlPresentacion,function():void{
-				Alert.show(" ", " "+urlPresentacion);	
+		
 					var swf:Object=null;
 					
 					try{
@@ -1959,6 +1992,17 @@
 		<mx:AnimateProperty	id="ocultar_banner" target="{banner}" property="top" fromValue="0" toValue="-612" duration="900" />
 		<mx:AnimateProperty	id="mostrar_banner" target="{banner}" property="top" fromValue="-612" toValue="0" duration="900" />
 		
+		<mx:AnimateProperty	id="ocultarW_ico_esp" target="{bton_idioma_esp}" property="width" fromValue="40" toValue="20" duration="900" />
+		<mx:AnimateProperty	id="mostrarW_ico_esp" target="{bton_idioma_esp}" property="width" fromValue="20" toValue="40" duration="900" />
+		<mx:AnimateProperty	id="ocultarH_ico_esp" target="{bton_idioma_esp}" property="height" fromValue="40" toValue="20" duration="900" />
+		<mx:AnimateProperty	id="mostrarH_ico_esp" target="{bton_idioma_esp}" property="height" fromValue="20" toValue="40" duration="900" />
+		
+	
+		
+		<mx:AnimateProperty	id="ocultarW_ico_eng" target="{bton_idioma_eng}" property="width" fromValue="40" toValue="20" duration="900" />
+		<mx:AnimateProperty	id="mostrarW_ico_eng" target="{bton_idioma_eng}" property="width" fromValue="20" toValue="40" duration="900" />
+		<mx:AnimateProperty	id="ocultarH_ico_eng" target="{bton_idioma_eng}" property="height" fromValue="40" toValue="20" duration="900" />
+		<mx:AnimateProperty	id="mostrarH_ico_eng" target="{bton_idioma_eng}" property="height" fromValue="20" toValue="40" duration="900" />
 		
 		
 		
@@ -2025,9 +2069,9 @@
 						<s:Image x="0" y="0" width="90%" height="90%" scaleMode="letterbox"
 								 smooth="true" smoothingQuality="high"
 								 source="@Embed('assets/image/btonLateral1.png')"/>
-						<s:Label left="0" right="0" bottom="-10" height="25" color="#006E73"
-								 fontSize="14" paddingLeft="5" styleName="titulo_menuDe"
-								 textAlign="center" verticalAlign="top">Evaluación</s:Label>
+						<s:Label id="label_eval" left="0" right="0" bottom="-10" height="25"
+								 color="#006E73" fontSize="14" paddingLeft="5"
+								 styleName="titulo_menuDe" textAlign="center" verticalAlign="top">Evaluación</s:Label>
 					</s:VGroup>
 					
 					
@@ -2040,9 +2084,9 @@
 									   smooth="true" smoothingQuality="high"
 							 source="assets/image/btonLateral2.png"/>
 						
-						<s:Label left="0" right="0" bottom="-10" height="25" color="#00777B"
-								 fontSize="14" paddingLeft="5" styleName="titulo_menuDe"
-								 textAlign="center" verticalAlign="top">Presentación</s:Label>
+						<s:Label id="label_pres" left="0" right="0" bottom="-10" height="25"
+								 color="#00777B" fontSize="14" paddingLeft="5"
+								 styleName="titulo_menuDe" textAlign="center" verticalAlign="top">Presentación</s:Label>
 					</s:VGroup>
 					
 					
@@ -2055,9 +2099,9 @@
 								  	<s:Image x="0" y="0" width="90%" height="90%" scaleMode="letterbox"
 												  smooth="true" smoothingQuality="high"
 							 source="assets/image/btonLateral3.png"  buttonMode="true"/>
-						<s:Label left="0" right="0" bottom="-10" height="25" color="#00777B"
-								 fontSize="14" paddingLeft="5" styleName="titulo_menuDe"
-								 textAlign="center" verticalAlign="top">Bloc de notas</s:Label>
+						<s:Label id="label_bloc" left="0" right="0" bottom="-10" height="25"
+								 color="#00777B" fontSize="14" paddingLeft="5"
+								 styleName="titulo_menuDe" textAlign="center" verticalAlign="top">Bloc de notas</s:Label>
 					</s:VGroup>
 					
 					<!-- bton 4 -->
@@ -2068,9 +2112,9 @@
 												  smooth="true" smoothingQuality="high"
 												  buttonMode="true"
 							 source="assets/image/btonLateral4.png"/>
-						<s:Label left="0" right="0" bottom="-10" height="25" color="#2B3F60"
-								 fontSize="14" paddingLeft="5" styleName="titulo_menuDe"
-								 textAlign="center" verticalAlign="top">Búsqueda</s:Label>
+						<s:Label id="label_busq" left="0" right="0" bottom="-10" height="25"
+								 color="#2B3F60" fontSize="14" paddingLeft="5"
+								 styleName="titulo_menuDe" textAlign="center" verticalAlign="top">Búsqueda</s:Label>
 						
 					</s:VGroup>
 				</s:VGroup>
@@ -2166,8 +2210,9 @@
 			
 			
 			<!--  botones de configuracion --> 
-			<s:HGroup id="grupo_botones" right="5" top="5" width="191" height="40">
-				<s:SWFLoader id="bton_idioma_eng" width="0" height="40" source="assets/swf/bton_idioma_eng.swf">
+			<s:HGroup id="grupo_botones" right="5" top="5" width="206" height="40"
+					  verticalAlign="middle">
+				<s:SWFLoader id="bton_idioma_eng" width="20" height="20" source="assets/swf/bton_idioma_eng.swf">
 					
 				</s:SWFLoader>
 				
